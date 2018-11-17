@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Restart Server') {
             steps {
-                sh 'pm2 start app.js --name TelegramBotAPI'
+                sh 'pm2 restart TelegramBotAPI'
             }
         }
     }
