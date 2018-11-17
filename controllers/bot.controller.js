@@ -9,8 +9,8 @@ exports.default = (req, res) => {
 exports.sendMessage = (req, res) => {
   try {
     request.post(
-      `${telegramAPI}/${bot}/sendMessage?chat_id=${req.body.chat_id}&text=${
-        req.body.text
+      `${telegramAPI}/${bot}/sendMessage?chat_id=${req.query.chat_id}&text=${
+        req.query.text
       }`,
       {},
       (err, response) => {
@@ -28,8 +28,8 @@ exports.sendMessage = (req, res) => {
 exports.sendFile = (req, res) => {
   try {
     var formData = {
-      chat_id: req.body.chat_id,
-      document: fs.createReadStream(req.body.documentPath)
+      chat_id: req.query.chat_id,
+      document: fs.createReadStream(req.query.documentPath)
     };
     request.post(
       { url: `${telegramAPI}/${bot}/sendDocument`, formData: formData },
