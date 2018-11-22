@@ -9,13 +9,14 @@ exports.default = (req, res) => {
 exports.sendMessage = (req, res) => {
   try {
     request.post(
-      `${telegramAPI}/${bot}/sendMessage?chat_id=${req.query.chat_id}&text=${
-        req.query.text
+      `${telegramAPI}/${bot}/sendMessage?chat_id=${req.body.chat_id}&text=${
+        req.body.text
       }`,
       {},
       (err, response) => {
         if (err) {
-          throw err;
+          res.json({ message: 'request failed', err: err });
+          return;
         }
         res.json(response);
       }
@@ -28,15 +29,15 @@ exports.sendMessage = (req, res) => {
 exports.sendFile = (req, res) => {
   try {
     var formData = {
-      chat_id: req.query.chat_id,
-      document: fs.createReadStream(req.query.documentPath)
+      chat_id: req.body.chat_id,
+      document: fs.createReadStream(req.body.documentPath)
     };
     request.post(
       { url: `${telegramAPI}/${bot}/sendDocument`, formData: formData },
       (err, response) => {
         if (err) {
-          res.json({ message: 'failed' });
-          throw err;
+          res.json({ message: 'failed', err: err });
+          return;
         }
         res.json(response);
       }
