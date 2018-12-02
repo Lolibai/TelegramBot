@@ -29,7 +29,6 @@ exports.sendMessage = (req, res) => {
 
 exports.sendFile = (req, res) => {
   try {
-    console.info('MAMA MIA', req.body, req.body.documentPath);
     var formData = {
       chat_id: req.body.chat_id,
       document: fs.createReadStream(req.body.documentPath)
