@@ -41,11 +41,13 @@ exports.sendFile = (req, res) => {
           res.json({ message: 'failed', err: err });
           return;
         }
+        res.status(200);
         res.json(response);
       }
     );
   } catch (err) {
     console.log(err);
-    res.json(err);
+    res.status(404);
+    res.json({message: 'not a valid path', path: req.body.documentPath });
   }
 };
